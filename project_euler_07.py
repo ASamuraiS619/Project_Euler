@@ -7,6 +7,8 @@ Problem7 「10001番目の素数」
 10 001 番目の素数を求めよ.
 '''
 
+from tqdm import tqdm
+
 def is_prime(target, primes):
     for i in primes:
         if target % i == 0:
@@ -16,10 +18,12 @@ def is_prime(target, primes):
 if __name__ == '__main__':
     prime_numbers = [2]
     target = 3
-    while True:
-        if is_prime(target, prime_numbers):
-            prime_numbers.append(target)
-            if len(prime_numbers) == 10001:
-                print(target)   # answer 104743
-                break
-        target += 2
+    with tqdm(total = 10000) as pbar:
+        while True:
+            if is_prime(target, prime_numbers):
+                prime_numbers.append(target)
+                pbar.update(1)
+                if len(prime_numbers) == 10001:
+                    print(target)   # answer 104743
+                    break
+            target += 2
