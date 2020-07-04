@@ -109,8 +109,9 @@ Problem13 「大きな数の足し算」
 
 
 import time
+from functools import reduce
 
-target_numbers_str = """
+target_numbers_str_raw = """
 37107287533902102798797998220837590246510135740250
 46376937677490009712648124896970078050417018260538
 74324986199524741059474233309513058123726617309629
@@ -215,9 +216,10 @@ target_numbers_str = """
 
 if __name__ == '__main__':
     start = time.time()
-    target_numbers = list(map(lambda x:int(x), target_numbers_str.split()))
 
-    print(str(sum(target_numbers))[0:10])   # answer 5537376230
+    target_numbers_str = target_numbers_str_raw.split()
+    total = reduce(lambda x, y: int(x) + int(y), target_numbers_str)
+    print(str(total)[0:10])   # answer 5537376230
 
     elapsed_time = time.time() - start
-    print("elapsed_time:{}".format(round(elapsed_time, 7)) + "[sec]")   # 0.000123sec
+    print("elapsed_time:{}".format(round(elapsed_time, 7)) + "[sec]")   # 0.000114sec
