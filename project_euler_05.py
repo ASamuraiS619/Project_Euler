@@ -8,6 +8,7 @@ Problem5 「最小の倍数」
 '''
 
 from sympy import sieve
+from functools import reduce
 
 def minimum_multiple(target):
     included_primes = sieve.primerange(1, target+1)
@@ -33,9 +34,7 @@ def minimum_multiple(target):
     factors = map(lambda x: x[0] ** x[1], prime_factorize_sets)
 
     # 要素を全て掛け合わせる
-    answer = 1
-    for factor in factors:
-        answer *= factor
+    answer = reduce(lambda x, y: x * y, factors)
 
     return answer
 
