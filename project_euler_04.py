@@ -7,6 +7,7 @@ Problem4 「最大の回文積」
 では, 3桁の数の積で表される回文数の最大値を求めよ.
 '''
 
+import time
 
 def is_palindromic_number(number):
     str_number = str(number)
@@ -19,6 +20,8 @@ def is_palindromic_number(number):
 
 
 if __name__ == '__main__':
+    start = time.time()
+
     three_digit_numbers = list(range(100, 1000))
     checking_numbers = []
 
@@ -36,3 +39,6 @@ if __name__ == '__main__':
             # answer 906609
             print(k)
             break
+
+    elapsed_time = time.time() - start
+    print("elapsed_time:{}".format(round(elapsed_time, 5)) + "[sec]")   # 0.12422sec
