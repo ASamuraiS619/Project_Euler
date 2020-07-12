@@ -11,25 +11,25 @@ Problem22 「名前のスコア」
 '''
 
 import time
-
-def score(name):
-    name_in_index = map(lambda x: alphabets.index(x) + 1, name)
-    value = sum(name_in_index)
-    score = (names.index(name) + 1) * value
-    return score
+import string
 
 if __name__ == '__main__':
     start = time.time()
 
-    alphabets = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    alphabets = {}
+    for index, char in enumerate(list(string.ascii_uppercase)):
+        alphabets[char] = index + 1
+
 
     with open('p022_names.txt') as f:
         # テキストにもともとダブルクオーテーションが付いてしまっているので、取り除いてからsplitする。
         names = f.read().replace('"', '').split(',')
     names.sort()
 
-    total_score = sum(map(lambda x: score(x), names))
+    total_score = 0
+    for index, name in enumerate(names):
+        total_score += sum([alphabets[char] for char in list(name)]) * (index + 1)
     print(total_score)    # answer 871198282
 
     elapsed_time = time.time() - start
-    print("elapsed_time:{}".format(round(elapsed_time, 5)) + "[sec]")   # 0.20171sec
+    print("elapsed_time:{}".format(round(elapsed_time, 5)) + "[sec]")   # 0.00816sec
