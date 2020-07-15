@@ -7,6 +7,7 @@ Problem5 「最小の倍数」
 では, 1 から 20 までの整数全てで割り切れる数字の中で最小の正の数はいくらになるか.
 '''
 
+import time
 from sympy import sieve
 from functools import reduce
 
@@ -39,5 +40,10 @@ def minimum_multiple(target):
     return answer
 
 if __name__ == '__main__':
+    start = time.time()
+
     # answer 232792560
     print(minimum_multiple(20))
+
+    elapsed_time = time.time() - start
+    print("elapsed_time:{}[sec]".format(round(elapsed_time, 8)))    # 0.000272sec
