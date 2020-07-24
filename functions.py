@@ -25,3 +25,16 @@ def primes_up_to(number):
             target_list = tmp_target_list
 
         return prime_numbers
+
+def is_prime(num):
+    if num <= 1:
+        return False
+    elif num == 2:
+        return True
+    elif num % 2 == 0:
+        return False
+    else:
+        for divisor in range(3, int(num ** 0.5 + 1), 2):
+            if num % divisor == 0:
+                return False
+        return True
