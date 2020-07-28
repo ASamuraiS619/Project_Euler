@@ -11,25 +11,22 @@ Problem2 「偶数のフィボナッチ数」
 '''
 
 
-# 最初の2項を1, 1とすれば問題文の条件を満たしつつtotalの初期値に違和感が無いので便宜的に変更。
+import time
 
-# a_n-2 初期値は1。
-before_the_last_term = 1
-# a_n-1 初期値は1。
-last_term = 1
-# a_n   初期値は2。
-current_term = before_the_last_term + last_term
+def fibonacci_sequence(threshold, sequence=[1, 1]):
+    if sequence[-1] > threshold:
+        return sequence
+    else:
+        sequence.append(sequence[-2] + sequence[-1])
+        return fibonacci_sequence(threshold, sequence)
 
-total = 0
+if __name__ == '__main__':
+    start = time.time()
 
-while current_term < 4000000:
-    if current_term % 2 == 0:
-        total += current_term
+    THRESHOLD = 4 * 10 ** 6
+    target_sequence = fibonacci_sequence(THRESHOLD)
 
-    # 次に備えて項をずらす。
-    before_the_last_term = last_term
-    last_term = current_term
-    current_term = before_the_last_term + last_term
+    print(sum([num for num in target_sequence if num % 2 == 0]))
 
-# answer 4613732
-print(total)
+    elapsed_time = time.time() - start
+    print("elapsed_time:{}".format(round(elapsed_time, 10)) + "[sec]")   # 0.000056028sec
