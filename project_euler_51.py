@@ -47,25 +47,25 @@ def check_replaced_numbers(num, number_of_replace_digit, replace_number, value_c
 
     # 例えば122342で2を2ヶ所置換する時、置換場所のインデックスの選び方が[1, 2], [1, 5], [2, 5]の3通りあるので全て調べる
     for pair in combinations(same_digit_list, number_of_replace_digit):
+        if (len(str_num)-1) in pair:
+            continue
         # まずは置き換える箇所をXにした文字列を作成
         for slice_at in pair:
             str_num = str_num[:slice_at] + 'X' + str_num[slice_at+1:]
         # num自身が素数の場合にチェックするようにするので,countは1からスタートとする
         count = 1
-        answers = [num]
         # replace_numberより大きい数字へしか置換しない。
         for i in range(replace_number+1, 10):
             if is_prime(int(str_num.replace('X', str(i)))):
-                answers.append(int(str_num.replace('X', str(i))))
                 count += 1
         if count == value_count:
-            print(answers)
             return True
         else:
             pass
     return False
 
 if __name__ == '__main__':
+    # https://qiita.com/you1111/items/92bd776d6c40559dc88e によると、置き換える箇所の個数は3の倍数である必要があるとのこと。
     start = time.time()
 
     target = 3
@@ -80,26 +80,21 @@ if __name__ == '__main__':
                 if same_digit_number not in {0, 1, 2}:
                     pass
                 else:
-                    # 重複しているが1つしか変えない、というパターンも考慮して1から始める。
-                    for number_of_replace_digit in range(1, str(target).count(str(same_digit_number))):
-                        if check_replaced_numbers(target, number_of_replace_digit, same_digit_number):
-                            print(target)   # answer 121313
-                            flag = True
-                            break
-                    if flag == True:
-                        break
-        else:
-            # 8個あるためには、置換する数字は0, 1, 2のどれかでないといけない。
-            for i in [0, 1, 2]:
-                if str(i) in str(target):
-                    if check_replaced_numbers(target, 1, i):
-                        print(target)
-                        flag = True
-                        break
+                    same_digit_number_count = str(target).count(str(same_digit_number))
+                    if same_digit_number_count < 3:
+                        pass
+                    else:
+                        for number_of_replace_digit in [number for number in range(1, same_digit_number_count + 1) if number % 3 == 0]:
+                            if check_replaced_numbers(target, number_of_replace_digit, same_digit_number):
+                                print(target)   # answer 121313
+                                flag = True
+                                break
+                if flag == True:
+                    break
         if flag == True:
             break
         else:
             target += 2
 
     elapsed_time = time.time() - start
-    print("elapsed_time:{}".format(round(elapsed_time, 5)) + "[sec]")   # 0.58976sec
+    print("elapsed_time:{}".format(round(elapsed_time, 5)) + "[sec]")   # 0.16749sec
