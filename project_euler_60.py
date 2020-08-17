@@ -50,7 +50,6 @@ if __name__ == '__main__':
                     targets.append(prime)
             # targetsに4つ以上数字が無ければそもそも5つの数字の組にならない。
             if len(targets) >= 4:
-                print(num)
                 # targetsについて、全組み合わせを試す。
                 # 条件を満たし、かつ、合計が最小であれば答えとなる。
                 for prime_set in combinations(targets, 4):
@@ -68,4 +67,4 @@ if __name__ == '__main__':
             break
 
     elapsed_time = time.time() - start
-    print("elapsed_time:{}".format(round(elapsed_time, 5)) + "[sec]")   # 13.75395sec
+    print("elapsed_time:{}".format(round(elapsed_time, 5)) + "[sec]")   # 13.46076sec
