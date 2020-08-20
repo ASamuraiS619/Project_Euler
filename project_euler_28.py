@@ -40,7 +40,7 @@ def diagonal_sum(length):
 if __name__ == '__main__':
     start = time.time()
 
-    print(diagonal_sum(10001))   # answer 669171001
+    print(diagonal_sum(1001))   # answer 669171001
 
     elapsed_time = time.time() - start
     print("elapsed_time:{}".format(round(elapsed_time, 8)) + "[sec]")   # 0.00030112sec
