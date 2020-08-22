@@ -28,7 +28,7 @@ if __name__ == '__main__':
     start = time.time()
 
     # 偶数は2進数の1の位が0になり回文数にはなりえないので、奇数のみ判別。
-    answer = sum([num for num in range(1, 10 ** 6, 2) if is_palindromic_number(str(num)) and is_binary_palindromic_number(str(oct(num)))])
+    answer = sum([num for num in range(1, 10 ** 6, 2) if is_palindromic_number(str(num)) and is_binary_palindromic_number(str(bin(num)))])
 
     print(answer)  # answer 872187
 
