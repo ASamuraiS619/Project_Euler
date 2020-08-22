@@ -18,7 +18,8 @@ if __name__ == '__main__':
     start = time.time()
 
     # 毎回計算しなくて良いように、平方数の辞書を作っておく。
-    squares = {num: num ** 2 for num in range(1, 2000)}
+    # 最高でもどの辺も500未満なので、499までで作っておけば十分。
+    squares = {num: num ** 2 for num in range(1, 500)}
 
     answer_solutions = None
     answer_length = 0
@@ -30,11 +31,19 @@ if __name__ == '__main__':
         solutions = []
         # a < b < cとして解いている。(同じ長さの辺は存在し得ない。)
         # 整数の範囲ではa = 1にはなり得ない。
+        # c < a + bが必要な条件で、これとa < b < cとc = p - (a+b)を合わせると
+        # a >= p / 4のとき、 a < b < (p-a) / 2
+        # a < p / 4のとき、 p/2 - a < b < (p-a) / 2 となる。
         for a in range(2, p // 3):
-            for b in range(a+1, (p-1) // 2):
+            if a >= p // 4:
+                b_min = a + 1
+            else:
+                b_min = (p // 2) - a + 1
+            for b in range(b_min, (p-a) // 2):
                 c = p - (a+b)
                 if squares[a] + squares[b] == squares[c]:
                     solutions.append((a, b, c))
+
         if len(solutions) > answer_length:
             answer_solutions = solutions
             answer_length = len(solutions)
@@ -45,4 +54,4 @@ if __name__ == '__main__':
     print(answer)   # answer 840
 
     elapsed_time = time.time() - start
-    print("elapsed_time:{}".format(round(elapsed_time, 5)) + "[sec]")   # 5.04135sec
+    print("elapsed_time:{}".format(round(elapsed_time, 5)) + "[sec]")   # 0.99732sec
