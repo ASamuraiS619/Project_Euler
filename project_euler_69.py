@@ -30,6 +30,7 @@ if __name__ == '__main__':
 
     num = 2
     answer = 1
+    primes = []
     while True:
         if is_prime(num):
             if answer * num > 10 ** 6:
@@ -37,9 +38,17 @@ if __name__ == '__main__':
             else:
                 print(num)
                 answer *= num
+                primes.append(num)
         num += 1
+
+    numbers = set(range(1, answer))
+    not_relatively_primes = set()
+    for prime in primes:
+        not_relatively_primes = not_relatively_primes | set(map(lambda x: x * prime, range(1, answer // prime + 1)))
+    phi_n = len(numbers ^ not_relatively_primes)    # 92161
+    print(answer / phi_n)   # 5.539327915278697
 
     print(answer)   # answer 510510
 
     elapsed_time = time.time() - start
-    print("elapsed_time:{}".format(round(elapsed_time, 9)) + "[sec]")   # 0.000082731sec
+    print("elapsed_time:{}".format(round(elapsed_time, 5)) + "[sec]")   # 0.21975sec(answerのみ:0.000082731sec)
