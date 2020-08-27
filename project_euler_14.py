@@ -16,16 +16,13 @@ Problem14 「最長のコラッツ数列」
 
 import time
 
-def create_collatz_sequence(sequence):
-    if sequence[-1] == 1:
-        return sequence
-    elif sequence[-1] % 2 == 0:
-        sequence.append(int(sequence[-1] / 2))
-        return create_collatz_sequence(sequence)
+def collatz_sequence_length(value, times=0):
+    if value == 1:
+        return times
+    elif value % 2 == 0:
+        return collatz_sequence_length(value // 2, times + 1)
     else:
-        sequence.append(int(sequence[-1] * 3 + 1))
-        return create_collatz_sequence(sequence)
-
+        return collatz_sequence_length(value * 3 + 1, times + 1)
 
 if __name__ == '__main__':
     start = time.time()
@@ -33,7 +30,7 @@ if __name__ == '__main__':
     max_sequence_length_index = 0
     max_sequence_length = 0
     for i in range(1, 1000001):
-        sequence_length = len(create_collatz_sequence([i]))
+        sequence_length = collatz_sequence_length(i, 0)
         if sequence_length > max_sequence_length:
             max_sequence_length_index = i
             max_sequence_length = sequence_length
@@ -41,4 +38,4 @@ if __name__ == '__main__':
     print(max_sequence_length_index)    # answer 837799, length 525
 
     elapsed_time = time.time() - start
-    print("elapsed_time:{}".format(round(elapsed_time, 3)) + "[sec]")   # 46.658sec
+    print("elapsed_time:{}".format(round(elapsed_time, 3)) + "[sec]")   # 22.557sec
