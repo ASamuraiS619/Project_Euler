@@ -17,15 +17,21 @@ Problem76 「和の数え上げ」
 
 import time
 
-summetion_count_dict = {1: [0], 2: [1]}
+if __name__ == '__main__':
+    start = time.time()
 
-for n in range(3, 101):
-    summetion_count_dict[n] = []
-    for a in range(n-1, 0, -1):
-        b = n - a
-        if a >= b:
-            summetion_count_dict[n].append(1 + sum(summetion_count_dict[b]))
-        else:
-            summetion_count_dict[n].append(sum(summetion_count_dict[b][-a:]))
+    summetion_count_dict = {1: [0], 2: [1]}
 
-print(sum(summetion_count_dict[100]))   # answer 190569291
+    for n in range(3, 101):
+        summetion_count_dict[n] = []
+        for a in range(n-1, 0, -1):
+            b = n - a
+            if a >= b:
+                summetion_count_dict[n].append(1 + sum(summetion_count_dict[b]))
+            else:
+                summetion_count_dict[n].append(sum(summetion_count_dict[b][-a:]))
+
+    print(sum(summetion_count_dict[100]))   # answer 190569291
+
+    elapsed_time = time.time() - start
+    print("elapsed_time:{}".format(round(elapsed_time, 5)) + "[sec]")   # 0.00337sec
