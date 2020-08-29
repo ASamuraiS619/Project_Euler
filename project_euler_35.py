@@ -35,4 +35,4 @@ if __name__ == '__main__':
     print(len(circular_primes)) # answer 55
 
     elapsed_time = time.time() - start
-    print("elapsed_time:{}".format(round(elapsed_time, 5)) + "[sec]")   # 2.0001sec
+    print("elapsed_time:{}".format(round(elapsed_time, 5)) + "[sec]")   # 1.37946sec

@@ -49,4 +49,4 @@ if __name__ == '__main__':
             n += 1
 
     elapsed_time = time.time() - start
-    print("elapsed_time:{}".format(round(elapsed_time, 3)) + "[sec]")   # 19.884sec
+    print("elapsed_time:{}".format(round(elapsed_time, 5)) + "[sec]")   # 14.13839sec
