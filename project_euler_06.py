@@ -11,7 +11,11 @@ Problem6 「二乗和の差」
 同様にして, 最初の100個の自然数について二乗の和と和の二乗の差を求めよ.
 '''
 
+import time
+
 if __name__ == '__main__':
+    start = time.time()
+
     numbers = list(range(1, 101))
 
     summation_of_square = sum(map(lambda x: x ** 2, numbers))
@@ -21,3 +25,6 @@ if __name__ == '__main__':
 
     # answer 25164150
     print(diff)
+
+    elapsed_time = time.time() - start
+    print("elapsed_time:{}".format(round(elapsed_time, 9)) + "[sec]")   # 0.000075102sec
